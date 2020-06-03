@@ -1,13 +1,35 @@
 package com.example.mvvmlivedata.repositories;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.mvvmlivedata.R;
 import com.example.mvvmlivedata.datamodels.Sweets;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SweetsRepository {
 
-    public static ArrayList<Sweets> getMyObjects() {
+    private static SweetsRepository instance;
+    private ArrayList<Sweets> dataSet = new ArrayList<>();
+
+    public static SweetsRepository getInstance(){
+        if(instance == null){
+            instance = new SweetsRepository();
+        }
+        return instance;
+    }
+
+
+    // Pretend to get data from a webservice or online source
+    public MutableLiveData<List<Sweets>> getSweets(){
+        getList();
+        MutableLiveData<List<Sweets>> data = new MutableLiveData<>();
+        data.setValue(dataSet);
+        return data;
+    }
+
+    public static ArrayList<Sweets> getList() {
 
         final ArrayList<Sweets> sweets = new ArrayList<Sweets>();
 
